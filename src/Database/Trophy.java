@@ -20,7 +20,7 @@ public class Trophy {
 
 	/** Rarity of a trophy **/
 	public enum Rarity {
-		RARE, ULTRA_RARE, UNCOMMON, COMMON
+		RARE, VERY_RARE, ULTRA_RARE, UNCOMMON, COMMON
 
 	}
 

@@ -1,5 +1,6 @@
 package Database;
 
+import java.util.GregorianCalendar;
 import java.util.Iterator;
 
 /**
@@ -10,19 +11,14 @@ import java.util.Iterator;
  */
 public class GameList implements Iterable<Game> {
 
-    private Game head;
+    public Game head;
 
+    /**
+     * Constructor
+     * @param head Head game for the list
+     */
 	public GameList(Game head) {
-    }
-
-    public String toString() {
-		StringBuilder sb = new StringBuilder();
-
-		for (Game g : this) {
-		    sb.append(String.format("%s\n", g));
-        }
-
-		return sb.toString();
+        this.head = head;
     }
 
     /**
@@ -58,6 +54,9 @@ public class GameList implements Iterable<Game> {
      * @return Game object
      */
 	public Game getGame(String name) {
+        if (name == null)
+            throw new IllegalArgumentException("New game cannot be null");
+
         for (Game g : this) {
             if (g.getName().equals(name)) return g;
         }
@@ -70,6 +69,9 @@ public class GameList implements Iterable<Game> {
      * @param name Name to check for to remove
      */
     public void removeGame(String name) {
+        if (name == null)
+            throw new IllegalArgumentException("New game cannot be null");
+
         Game g = head;
         Game prev = null;
 
@@ -91,14 +93,17 @@ public class GameList implements Iterable<Game> {
 
     /**
      * Remove a game with a given name
-     * @param name Name to check for to remove
+     * @param game Name to check for to remove
      */
-    public void removeGame(Game name) {
+    public void removeGame(Game game) {
+        if (game == null)
+            throw new IllegalArgumentException("New game cannot be null");
+
         Game g = head;
         Game prev = null;
 
         while (g != null) {
-            if (g.equals(name)) {
+            if (g.equals(game)) {
                 if (prev != null) {
                     prev.setNext(g.getNext());
                 } else { // If is null then this game was the head
@@ -113,8 +118,35 @@ public class GameList implements Iterable<Game> {
         }
     }
 
+    /**
+     * Gets the length of this game list
+     * @return The list length
+     */
+    public int length() {
+        int l = 0;
+        for (Game g : this) l++;
+        return l;
+    }
+
     public Game getHead() {
         return head;
+    }
+
+    /**
+     * Gets the string representation of this object
+     * @return The string representation
+     */
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        int l = 0;
+
+        for (Game g : this) {
+            sb.append(String.format("%s\n", g));
+            l++;
+        }
+
+        // Check for length requirement
+        return (l == 0) ? "Empty game list" : sb.substring(0, sb.length() - 1);
     }
 
     /**
@@ -123,19 +155,19 @@ public class GameList implements Iterable<Game> {
      */
     @Override
     public Iterator<Game> iterator() {
-        return new Iterator<Game>() {
+        return new Iterator<>() {
             private Game currentGame = head;
 
             @Override
             public boolean hasNext() {
-                return  currentGame != null &&
-                        currentGame.getNext() != null;
+                return currentGame != null;
             }
 
             @Override
             public Game next() {
+                Game tmp = currentGame;
                 currentGame = currentGame.getNext();
-                return currentGame;
+                return tmp;
             }
         };
     }

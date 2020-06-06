@@ -15,6 +15,9 @@ public class User {
 	/** Unique key of this user **/
 	private double key;
 
+	/** Height of this node **/
+	private int height = 1;
+
 	/** Username of the user **/
 	private String username;
 
@@ -49,6 +52,22 @@ public class User {
 		this.level = level;
     }
 
+	/**
+	 * Copies a user object
+	 * @param user User to copy
+	 */
+	public User(User user) {
+		this.username = user.username;
+		this.level = user.level;
+		this.trophies = new ArrayList<>(user.trophies);
+		this.games = new GameList(user.games.head);
+		this.dob = user.dob;
+
+		// Dont clone left/right references
+		this.left = user.left;
+		this.right = user.right;
+	}
+
     /**
      * DO NOT MODIFY THIS METHOD
      * This method uses the username and level to create a unique key.
@@ -73,19 +92,44 @@ public class User {
 	}
 
 	/**
+	 * Counts the number of trophies a user has of a given rank
+	 * @param rank Rank to check for
+	 * @return Count of that rank
+	 */
+	public int countTrophiesOfRank(Trophy.Rank rank) {
+		int c = 0;
+		for (Trophy t : trophies) if (t.getRank().equals(rank)) c++;
+		return c;
+	}
+
+	/**
+	 * Adds a trophy to the users collection
+	 * @return true if successfully added
+	 */
+	public boolean addTrophy(Trophy trophy) throws IllegalArgumentException {
+		if (trophy == null)
+			throw new IllegalArgumentException("Trophy cannot be null");
+
+		// Check if trophy already in list
+		for (Trophy t : trophies) if (t.equals(trophy)) return false;
+
+		return trophies.add(trophy);
+	}
+
+	/**
 	 * Convert this user to a string representation
 	 * @return A string representation of this object
 	 */
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
 
-		sb.append(String.format("User: %s\n\nTrophies:\\n", username));
+		sb.append(String.format("User: %s\n\nTrophies: \n", username));
 
 		for (Trophy trophy : trophies) {
 			sb.append(String.format("%s\n", trophy));
 		}
 
-		sb.append("\nGames:\n");
+		sb.append("\nGames: \n");
 
 		for (Game game : games) {
 			sb.append(String.format("%s\n", game));
@@ -94,9 +138,8 @@ public class User {
 		SimpleDateFormat fmt = new SimpleDateFormat("MMM dd, YYYY");
 		sb.append(String.format("\nBirth Date: %s\n", fmt.format(dob.getTime())));
 
-		return sb.toString();
+		return sb.substring(0, sb.length() - 1);
 	}
-
 
 	public String getUsername() {
 		return username;
@@ -152,5 +195,13 @@ public class User {
 
 	public void setRight(User right) {
 		this.right = right;
+	}
+
+	public int getHeight() {
+		return height;
+	}
+
+	public void setHeight(int height) {
+		this.height = height;
 	}
 }
