@@ -21,6 +21,7 @@ public class BinaryTree {
 	 * @throws IllegalArgumentException if friend is null
 	 */
 	public boolean beFriend(User friend) throws IllegalArgumentException {
+		return false;
 	}
 
 	/**
@@ -32,6 +33,7 @@ public class BinaryTree {
 	 * @throws IllegalArgumentException if "friend" is null
 	 */
 	public boolean deFriend(User friend) throws IllegalArgumentException {
+		return false;
 	}
 
 	/**
@@ -44,6 +46,7 @@ public class BinaryTree {
 	 * @throws IllegalArgumentException if reference is null
 	 */
 	public int countBetterPlayers(User reference) throws IllegalArgumentException {
+		return 0;
 	}
 
 	/**
@@ -56,6 +59,7 @@ public class BinaryTree {
 	 * @throws IllegalArgumentException if reference is null
 	 */
 	public int countWorsePlayers(User reference) throws IllegalArgumentException {
+		return 0;
 	}
 
 	/**
@@ -65,6 +69,7 @@ public class BinaryTree {
 	 * @return the user with the most platinum trophies, or null if there are none
 	 */
 	public User mostPlatinums() {
+		return null;
 	}
 
 	/**
@@ -114,5 +119,6 @@ public class BinaryTree {
 	 * @return A string version of the tree
 	 */
 	public String toString() {
+		return null;
 	}
 }

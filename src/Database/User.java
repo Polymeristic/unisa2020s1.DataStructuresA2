@@ -11,10 +11,42 @@ import java.util.Calendar;
  * @version 1.0
  */
 public class User {
-    private Object username;
-	private double level;
 
+	/** Unique key of this user **/
+	private double key;
+
+	/** Username of the user **/
+	private String username;
+
+	/** Current level of this user **/
+	private int level;
+
+	/** List of trophies this user has achieved **/
+	private ArrayList<Trophy> trophies;
+
+	/** Games this user has **/
+	private GameList games;
+
+	/** Date of birth of this user **/
+	private Calendar dob;
+
+	/** Root user on the left subtree **/
+	private User left;
+
+	/** Root user on the right subtree **/
+	private User right;
+
+
+	/**
+	 * Create a new defined instance of user
+	 * @param username Username of the user
+	 * @param dob Date of birth of the user
+	 * @param level Level of the user
+	 */
 	public User(String username, Calendar dob, int level) {
+		this.username = username;
+		this.dob = dob;
+		this.level = level;
     }
 
     /**
@@ -31,39 +63,94 @@ public class User {
         // Make a divisor 10^x
         double divisor = Math.pow(10, length);
         // Return level.hash
+
         return level + hash / divisor;
     }
 
-    public String toString() {
-		return null;}
-
-	public Object getUsername() {
-		// TODO Auto-generated method stub
-		return null;
+    /** Some tests use a method called 'getKey'? Creating this to fix those tests as we cant modify the above method **/
+    public double getKey() {
+    	return calculateKey();
 	}
 
-	public Object getDob() {
-		// TODO Auto-generated method stub
-		return null;
+	/**
+	 * Convert this user to a string representation
+	 * @return A string representation of this object
+	 */
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+
+		sb.append(String.format("User: %s\n\nTrophies:\\n", username));
+
+		for (Trophy trophy : trophies) {
+			sb.append(String.format("%s\n", trophy));
+		}
+
+		sb.append("\nGames:\n");
+
+		for (Game game : games) {
+			sb.append(String.format("%s\n", game));
+		}
+
+		SimpleDateFormat fmt = new SimpleDateFormat("MMM dd, YYYY");
+		sb.append(String.format("\nBirth Date: %s\n", fmt.format(dob.getTime())));
+
+		return sb.toString();
 	}
 
-	public Object getLevel() {
-		// TODO Auto-generated method stub
-		return null;
+
+	public String getUsername() {
+		return username;
 	}
 
-	public double getKey() {
-		// TODO Auto-generated method stub
-		return 0;
+	public void setUsername(String username) {
+		this.username = username;
 	}
 
-	public void setGames(GameList games) {
-		// TODO Auto-generated method stub
-		
+	public int getLevel() {
+		return level;
+	}
+
+	public void setLevel(int level) {
+		this.level = level;
+	}
+
+	public ArrayList<Trophy> getTrophies() {
+		return trophies;
 	}
 
 	public void setTrophies(ArrayList<Trophy> trophies) {
-		// TODO Auto-generated method stub
-		
+		this.trophies = trophies;
+	}
+
+	public GameList getGames() {
+		return games;
+	}
+
+	public void setGames(GameList games) {
+		this.games = games;
+	}
+
+	public Calendar getDob() {
+		return dob;
+	}
+
+	public void setDob(Calendar dob) {
+		this.dob = dob;
+	}
+
+	public User getLeft() {
+		return left;
+	}
+
+	public void setLeft(User left) {
+		this.left = left;
+	}
+
+	public User getRight() {
+		return right;
+	}
+
+	public void setRight(User right) {
+		this.right = right;
 	}
 }

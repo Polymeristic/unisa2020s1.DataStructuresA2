@@ -1,7 +1,5 @@
 package Testing;
 
-
-
 import org.junit.Rule;
 import org.junit.rules.TestRule;
 import org.junit.rules.TestWatcher;

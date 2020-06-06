@@ -32,9 +32,7 @@ public class GameListTest extends DSUnitTesting {
             gl.getGame(null);
 
             fail("Checking that getGame throws an IllegalArgumentException when null arg supplied");
-        }
-        catch (IllegalArgumentException e) {
-        }
+        } catch (IllegalArgumentException e) { }
     }
 
     @Test
