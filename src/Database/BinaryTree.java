@@ -384,29 +384,19 @@ public class BinaryTree {
 		root.setHeight(getHeight(root));
 		int b = getBalance(root);
 
-		// Left left
-		if (b > 1 && friend.getKey() < root.getLeft().getKey()) {
-			System.out.println("Left left on : " + root.getUsername());
+		if (b > 1) {
+			if (friend.getKey() > root.getLeft().getKey()) {
+				root.setLeft(rotateLeft(root.getLeft()));
+			}
+
 			return rotateRight(root);
-		}
+		} else
+		if (b < -1) {
+			if (friend.getKey() < root.getRight().getKey()) {
+				root.setRight(rotateRight(root.getRight()));
+				return rotateLeft(root);
+			}
 
-		// Right Right
-		if (b < -1 && friend.getKey() > root.getRight().getKey()) {
-			System.out.println("Right right on : " + root.getUsername());
-			return rotateLeft(root);
-		}
-
-		// Left Right
-		if (b > 1 && friend.getKey() > root.getLeft().getKey()) {
-			System.out.println("Left right on : " + root.getUsername());
-			root.setLeft(rotateLeft(root.getLeft()));
-			return rotateRight(root);
-		}
-
-		// Right Left
-		if (b < -1 && friend.getKey() < root.getRight().getKey()) {
-			System.out.println("Right left on : " + root.getUsername());
-			root.setRight(rotateRight(root.getRight()));
 			return rotateLeft(root);
 		}
 
